@@ -1,0 +1,142 @@
+
+import java.util.*;
+class Vehicle {
+    private String vehicleNumber;
+    private String ownerName;
+    private String vehicleType;
+
+    public Vehicle(String vehicleNumber, String ownerName, String vehicleType) {
+        this.vehicleNumber = vehicleNumber;
+        this.ownerName = ownerName;
+        this.vehicleType = vehicleType;
+    }
+
+    public String getVehicleNumber() {
+        return vehicleNumber;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public String getVehicleType() {
+        return vehicleType;
+    }
+
+    public void displayVehicle() {
+        System.out.println("Vehicle Number : " + vehicleNumber);
+        System.out.println("Owner Name     : " + ownerName);
+        System.out.println("Vehicle Type   : " + vehicleType);
+    }
+}
+
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Vehicle> parkingList = new ArrayList<>();
+
+        int choice;
+
+        do {
+            System.out.println("PARKING SYSTEM MENU ");
+            System.out.println("1. Park Vehicle");
+            System.out.println("2. Remove Vehicle");
+            System.out.println("3. View Parked Vehicles");
+            System.out.println("4. Search Vehicle");
+            System.out.println("5. Exit");
+            System.out.print("Enter your choice: ");
+            choice = sc.nextInt();
+            sc.nextLine(); 
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter Vehicle Number: ");
+                    String vNumber = sc.nextLine();
+
+                    boolean alreadyExists = false;
+                    for (Vehicle v : parkingList) {
+                        if (v.getVehicleNumber().equalsIgnoreCase(vNumber)) {
+                            alreadyExists = true;
+                            break;
+                        }
+                    }
+
+                    if (alreadyExists) {
+                        System.out.println("Vehicle already parked!");
+                    } else {
+                        System.out.print("Enter Owner Name: ");
+                        String owner = sc.nextLine();
+
+                        System.out.print("Enter Vehicle Type (Bike/Car): ");
+                        String type = sc.nextLine();
+
+                        Vehicle vehicle = new Vehicle(vNumber, owner, type);
+                        parkingList.add(vehicle);
+
+                        System.out.println("Vehicle parked successfully!");
+                    }
+                    break;
+
+                case 2:
+                    System.out.print("Enter Vehicle Number to remove: ");
+                    String removeNumber = sc.nextLine();
+
+                    boolean removed = false;
+                    for (int i = 0; i < parkingList.size(); i++) {
+                        if (parkingList.get(i).getVehicleNumber().equalsIgnoreCase(removeNumber)) {
+                            parkingList.remove(i);
+                            removed = true;
+                            System.out.println("Vehicle removed successfully!");
+                            break;
+                        }
+                    }
+
+                    if (!removed) {
+                        System.out.println("Vehicle not found!");
+                    }
+                    break;
+
+                case 3:
+                    if (parkingList.isEmpty()) {
+                        System.out.println("No vehicles parked.");
+                    } else {
+                        System.out.println("PARKED VEHICLES");
+                        for (Vehicle v : parkingList) {
+                            v.displayVehicle();
+                        }
+                    }
+                    break;
+
+                case 4:
+                    System.out.print("Enter Vehicle Number to search: ");
+                    String searchNumber = sc.nextLine();
+
+boolean found = false;
+                    for (Vehicle v : parkingList) {
+                        if (v.getVehicleNumber().equalsIgnoreCase(searchNumber)) {
+                            System.out.println("Vehicle found:");
+                            v.displayVehicle();
+                            found = true;
+                            break;
+                        }
+                    }
+
+                    if (!found) {
+                        System.out.println("Vehicle not found!");
+                    }
+                    break;
+
+                case 5:
+                    System.out.println("Exiting Parking System");
+                    break;
+
+                default:
+                    System.out.println("Invalid choice! Please try again");
+            }
+
+        } while (choice != 5);
+
+        sc.close();
+    }
+}
