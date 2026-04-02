@@ -1,0 +1,160 @@
+import java.util.*;
+class user {
+  private int user_id;
+  private String user_name;
+  private int user_phn;
+  private String location;
+  int getid() {
+    return user_id;
+  }
+  void setid(int user_id) {
+    this.user_id=user_id;
+  }
+  String getname() {
+    return user_name;
+  }
+  void setname(String user_name) {
+    this.user_name=user_name;
+  }
+  int getphn() {
+    return user_phn;
+  }
+  void setphn(int user_phn) {
+    this.user_phn=user_phn;
+  }
+  String getlocation() {
+    return location;
+  }
+  void setlocation(String location) {
+    this.location=location;
+  }
+  void display() {
+    System.out.println("UserID is"+" "+user_id);
+    System.out.println("UserName is"+" "+user_name);
+    System.out.println("UserPhone"+" "+user_phn);
+    System.out.println("Location"+" "+location);
+    System.out.println("ID is"+" ");
+  }
+  static void register() {
+    Scanner s=new Scanner(System.in);
+    System.out.println("Enter Your Details");
+    System.out.println("Enter your Name");
+    String name=s.next();
+    System.out.println("Enter your Phone");
+    int phone=s.nextInt();
+    System.out.println("Enter your location");
+    String location1=s.next();
+    System.out.println("Register Successfully");
+  }
+}
+class food {
+  int food_id;
+  String food_name;
+  String food_style;
+  double price;
+  food(int food_id,String food_name,String food_style,double price) {
+    this.food_id=food_id;
+    this.food_name=food_name;
+    this.food_style=food_style;
+    this.price=price;
+  }
+  void displayfood() {
+    System.out.println("FoodId"+" "+food_id);
+    System.out.println("FoodName"+" "+food_name);
+    System.out.println("FoodStyle"+" "+food_style);
+    System.out.println("Price"+" "+price);
+
+  }
+  static void display3() {
+    System.out.println("Pizza");
+    System.out.println("Burger");
+    System.out.println("Sphagetti");
+    System.out.println("Cake");
+    System.out.println("Shawarma");
+  }
+  static  void Available(ArrayList<food>foodlist) {
+    Scanner s=new Scanner (System.in);
+    System.out.println("Enter your Food name");
+    String fooditem=s.nextLine();
+    boolean found=false;
+    for(food f:foodlist) {
+      if(f.food_name.equalsIgnoreCase(fooditem)) {
+        System.out.println("Food Available");
+        f.displayfood();
+        found=true;
+        break;
+      }
+    }
+    if(!found) {
+      System.out.println("Food not Available");
+    }
+  }
+}
+class Main {
+  public static void main(String[]args) {
+    ArrayList<food>foodlist=new ArrayList<>();
+    ArrayList<user>userlist=new ArrayList<>();
+    user a=new user();
+    a.setid(1);
+    a.setname("Ritzz");
+    a.setphn(2345678);
+    a.setlocation("77 east car chennai");
+    userlist.add(a);
+    user a1=new user();
+    a1.setid(2);
+    a1.setname("vishali");
+    a1.setphn(23456);
+    a1.setlocation("24 east car coimbatore");
+    userlist.add(a1);
+    user a2=new user();
+    a2.setid(3);
+    a2.setname("suba");
+    a2.setphn(234);
+    a2.setlocation("21 north car Bangalore");
+    userlist.add(a2);
+    food b=new food(11,"Pizza","Italian",199.0);
+    foodlist.add(b);
+    food b1=new food(12,"Burger","Mexican",169.0);
+    foodlist.add(b1);
+    food b2=new food(13,"Shawarma","Australian",99.0);
+    foodlist.add(b2);
+    food b3=new food(14,"cake","belgium",179.0);
+    foodlist.add(b3);
+    food b4=new food(15,"Sphagetti","italian",186.0);
+    foodlist.add(b4);
+    int n;
+    do {
+      System.out.println("Welcome to our Food Delivary App");
+      System.out.println("Enter 1:For Registration");
+      System.out.println("Enter 2:For Food Menu");
+      System.out.println("Enter 3:To Check Availability");
+      System.out.println("Enter 4:Exit");
+      System.out.println("Enter Your Choice:");
+       Scanner s=new Scanner(System.in);
+       n=s.nextInt();
+      switch(n) {
+      case 1:
+        user.register();
+        break;
+
+      case 2:
+        food.display3();
+        break;
+
+      case 3:
+        food.Available(foodlist);
+        break;
+
+      case 4:
+        System.out.println("ThankYou!!!");
+        break;
+
+      default:
+        System.out.println("Invalid choice");
+
+}
+    }
+    while(n!=4);
+    
+  }
+}
